@@ -4,7 +4,6 @@ import { Separator } from "../shadcn/separator";
 import { Switch } from "../shadcn/switch";
 import { Label } from "../shadcn/label";
 import { useTheme } from "@/providers/theme";
-import { useEffect } from "react";
 const navBar = [
   {
     href: "/",
@@ -26,17 +25,16 @@ const navBar = [
 ]
 export default function Header() {
   const { theme, setTheme } = useTheme()
-  useEffect(() => { console.log(theme) }, [])
   return (
     <>
-      <div className="flex max-h-[52px] items-center justify-between">
-        <div>
-          <Link to="/" className="flex h-full w-auto items-center">
-            <img src="/logo.png" alt="logo.png" className="h-full w-auto object-contain" />
-            <span className="mx-2 text-xl font-bold">NOSION</span>
+      <div className="flex screen-header items-center justify-between">
+        <div className="mx-2">
+          <Link to="/" className="flex items-center">
+            <img src="/logo.png" alt="logo.png" className="w-[50px] h-[50px] object-contain" />
+            <span className="mx-2 text-lg font-extrabold font-playwrite">NOSION</span>
           </Link>
         </div>
-        <div className="flex flex-1">
+        <div className="flex flex-1 mx-5">
           {navBar.map((nav, index) => (
             <nav key={index} className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
               <Field title={nav.title} href={nav.href} />

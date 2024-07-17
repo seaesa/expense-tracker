@@ -48,17 +48,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     // config for development mode
     server: {
       host: '0.0.0.0',
-      port: +env.__PORT,
+      port: +env.NO_PORT,
       strictPort: false,
       cors: true,
       open: false,
       middlewareMode: false,
-      origin: 'http://127.0.0.1:8080',
-      fs: {
-        strict: true,
-        deny: ['.env', '.env.*', '*.{crt,pem}'],
-      },
-      sourcemapIgnoreList: (sourcePath) => sourcePath.includes('node_modules')
+      origin: `http://127.0.0.1:${env.NO_PORT}`,
     },
     // config for preview production
     preview: {

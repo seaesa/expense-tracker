@@ -1,7 +1,7 @@
 @import url('@/assets/styles/font.css');
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities; 
+@tailwind components;
+@tailwind utilities;
 
 
 @layer base {
@@ -26,6 +26,10 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    /* config */
+    --max-height-header: 52px;
+    --min-height-header: 50px;
+    --height-content: calc(100vh - var(--min-height-header));
   }
 
   .dark {
@@ -58,12 +62,23 @@
     margin: 0;
     box-sizing: border-box;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
   }
+}
+
+.screen-header {
+  min-height: var(--min-height-header);
+  max-height: var(--max-height-header);
+}
+
+.screen-content {
+  height: var(--height-content);
 }
