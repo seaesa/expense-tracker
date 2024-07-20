@@ -5,7 +5,7 @@ import ContentLandingPage from "./components/landing";
 import Login from "./components/login/login";
 import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
-// ok
+// ok 
 export default function App() {
   return (
     <>
@@ -14,7 +14,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashBoard />}></Route>
         </Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login cainit='wefwe' />}></Route>
         <Route element={<Landing />}>
           <Route path="/" element={<ContentLandingPage />} />
         </Route>

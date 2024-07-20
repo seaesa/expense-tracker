@@ -94,7 +94,7 @@ export default function Footer() {
               <span>{content.title}</span>
               <div className='flex flex-col'>
                 {content.child.map((child: ChildContentProps) => (
-                  <Link to={child.link}>{child.name}</Link>
+                  <Link key={Math.random()} to={child.link}>{child.name}</Link>
                 ))}
               </div>
             </div>

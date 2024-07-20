@@ -3,7 +3,12 @@ import { Input } from "../core/shadcn/input";
 import { Label } from "../core/shadcn/label";
 import { Button } from "../core/shadcn/button";
 import LoginImage from '@/assets/team.svg';
-export default function Login() {
+import useFormCustom from "@/hocs/test";
+import { useEffect } from "react";
+const Login = (props: any) => {
+  useEffect(() => {
+    console.log(props)
+  }, [])
   return (
     <div className="w-full lg:grid min-h-svh lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
@@ -61,3 +66,4 @@ export default function Login() {
     </div>
   )
 }
+export default useFormCustom(Login)

@@ -2,11 +2,7 @@ import { Link } from "react-router-dom"
 import { Button } from "../shadcn/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Avatar, AvatarFallback, AvatarImage } from "../shadcn/avatar"
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from '../shadcn/resizable'
+
 type ButtonProps = {
   icon: any,
   name: string,
@@ -35,12 +31,10 @@ function HeaderSideBar() {
 export default function SideBar() {
   return (
     <div className="flex flex-col">
-      <ResizablePanelGroup direction="horizontal">
-        <div className="flex mx-2 items-center cursor-pointer">
-          <HeaderSideBar />
-          <span className="text-foreground transition-colors font-bold">ngoc hai</span>
-        </div>
-      </ResizablePanelGroup>
+      <div className="flex mx-2 items-center cursor-pointer">
+        <HeaderSideBar />
+        <span className="text-foreground transition-colors font-bold">ngoc hai</span>
+      </div>
     </div>
   )
 }
