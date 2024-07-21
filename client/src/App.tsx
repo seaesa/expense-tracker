@@ -5,10 +5,12 @@ import ContentLandingPage from "./components/landing";
 import Login from "./components/login/login";
 import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
+import LoadingBar from 'react-top-loading-bar'
 // ok 
 export default function App() {
   return (
     <>
+      <LoadingBar color='#d3d3d3' />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<DashBoard />}></Route>

@@ -28,13 +28,9 @@ function HeaderSideBar() {
     </>
   )
 }
-export default function SideBar() {
+export default function Sidebar() {
   return (
-    <div className="flex flex-col">
-      <div className="flex mx-2 items-center cursor-pointer">
-        <HeaderSideBar />
-        <span className="text-foreground transition-colors font-bold">ngoc hai</span>
-      </div>
-    </div>
+    <nav className='relative hidden h-screen flex-none border-r z-10 pt-20 md:block duration-500 w-72'
+    ></nav>
   )
 }

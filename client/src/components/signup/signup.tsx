@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from "@/components/core/shadcn/button"
 import { Input } from "@/components/core/shadcn/input"
 import { Label } from "@/components/core/shadcn/label"
-import SignupImage from '@/assets/team.svg'
+import Globe from '/globe.svg'
 export default function Signup() {
   const { register, handleSubmit, formState: { errors }, } = useForm()
   const handleSignup = (data: any) => {
@@ -14,7 +14,7 @@ export default function Signup() {
     <div className="w-full lg:grid min-h-svh lg:grid-cols-2">
       <div className="hidden bg-muted lg:flex justify-center items-center">
         <img
-          src={SignupImage}
+          src={Globe}
           alt="Image"
           className="h-full w-full"
         />

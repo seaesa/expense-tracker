@@ -27,7 +27,7 @@ export default function Header() {
   const { theme, setTheme } = useTheme()
   return (
     <>
-      <div className="flex screen-header items-center justify-between">
+      <div className="flex screen-header items-center justify-between mx-2 my-1">
         <div className="mx-2">
           <Link to="/" className="flex items-center">
             <img src="/logo.png" alt="logo.png" className="w-[50px] h-[50px] object-contain" />
@@ -54,7 +54,7 @@ export default function Header() {
             </Button>
             <Separator orientation="vertical" className="h-6 mr-4" />
             <Button asChild>
-              <Link to='signup'>
+              <Link to='/signup'>
                 Get Nosion Free
               </Link>
             </Button>
