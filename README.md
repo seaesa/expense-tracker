@@ -1,6 +1,6 @@
 # Fullstack Application React + NestJs
 
-this website provide a app help you managerevery thing my day life
+this website provide a app help you manager every task in day life
 
 ### required dependency:
 - <a href="https://bun.sh/" target="blank">BunJs</a> for manager package from client. You can run _npm i -g bun_ to install pakage from global
