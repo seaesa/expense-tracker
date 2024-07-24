@@ -1,4 +1,4 @@
-import { ComponentType, useEffect, useState } from 'react';
+import { ComponentType, useState } from 'react';
 
 interface FormValues {
   [key: string]: string;
@@ -11,9 +11,6 @@ interface WithFormProps {
 export default function useFormCustom<T extends WithFormProps>(WrappedComponent: ComponentType<T>) {
   const WithForm: React.FC<T> = (props) => {
     const [formValues, setFormValues] = useState<FormValues>({});
-    useEffect(() => {
-      console.log(props)
-    }, [])
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
       setFormValues((prevValues) => ({

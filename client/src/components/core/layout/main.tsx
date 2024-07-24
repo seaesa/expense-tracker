@@ -9,7 +9,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
     <>
       <div className="flex h-screen overflow-hidden">
         <Sidebar />
-        <main className="flex-1 overflow-hidden pt-16">{children || <Outlet />}</main>
+        <main className="flex-1 overflow-y-scroll">{children || <Outlet />}</main>
       </div>
     </>
   )

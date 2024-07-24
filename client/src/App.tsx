@@ -5,18 +5,17 @@ import ContentLandingPage from "./components/landing";
 import Login from "./components/login/login";
 import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
-import LoadingBar from 'react-top-loading-bar'
-// ok 
+import NextTopLoader from 'nextjs-toploader';
 export default function App() {
   return (
     <>
-      <LoadingBar color='#d3d3d3' />
+      <NextTopLoader color="#d3d3d3" showSpinner={false} />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<DashBoard />}></Route>
         </Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/login" element={<Login cainit='wefwe' />}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route element={<Landing />}>
           <Route path="/" element={<ContentLandingPage />} />
         </Route>
