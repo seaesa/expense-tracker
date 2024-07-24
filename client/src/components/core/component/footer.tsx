@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGithub, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { Facebook, Github, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { Separator } from '../shadcn/separator';
@@ -132,14 +131,14 @@ const Footer: React.FC = () => {
             <div className='flex'>
               <IconSocial>
                 <Link to='https://github.com/seaesa'>
-                  <FontAwesomeIcon icon={faGithub} />
+                  <Github />
                 </Link>
-                <FontAwesomeIcon icon={faYoutube} />
-                <FontAwesomeIcon icon={faTwitter} />
+                <Youtube />
+                <Twitter />
                 <Link to='https://www.facebook.com/haipeaces'>
-                  <FontAwesomeIcon icon={faFacebook} />
+                  <Facebook />
                 </Link>
-                <FontAwesomeIcon icon={faInstagram} />
+                <Instagram />
               </IconSocial>
             </div>
           </div>

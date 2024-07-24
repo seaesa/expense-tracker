@@ -5,7 +5,6 @@ const ContentLandingPage = () => {
   return (
     <div className="screen-content flex min-h-[600px]">
       <div className='w-[50%]'>
-        {/* <img src={imageSvg} className='h-full' alt="write.svg" /> */}
         <Cobe />
       </div>
       <div className='flex flex-col justify-center items-center text-center w-[50%]'>

@@ -6,6 +6,7 @@ import Login from "./components/login/login";
 import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
 import NextTopLoader from 'nextjs-toploader';
+import Task from "./components/task";
 export default function App() {
   return (
     <>
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<DashBoard />}></Route>
+          <Route path="/task" element={<Task />}></Route>
         </Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
