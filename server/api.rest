@@ -1,5 +1,5 @@
-#GET
-GET http://localhost:3000/api/home/2
+### GET
+GET http://localhost:3000/api/home
 
 ###POST
 POST http://localhost:3000/api/home
@@ -8,3 +8,6 @@ Content-Type: application/json
 {
   "name":"hai"
 }
+
+###
+GET http://localhost:3000/login/wefew

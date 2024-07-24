@@ -1,17 +1,11 @@
-import { Body, Controller, Get, HostParam, HttpCode, Ip, Param, Post, Redirect, Req, Res, Response } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 @Controller('api')
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private appService: AppService) { }
 
-  @Get('home/:id')
-  getHello(@Param() params: Request): any {
-    console.log(params)
+  @Get()
+  getHello(): string {
     return this.appService.getHello();
-  }
-  @Post('home')
-  getPost(@Response() hosts: Request) {
-    console.log(hosts)
-    return "wefwf"
   }
 }
