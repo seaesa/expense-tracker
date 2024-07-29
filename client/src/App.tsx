@@ -7,6 +7,7 @@ import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
 import NextTopLoader from 'nextjs-toploader';
 import Task from "./components/task";
+
 export default function App() {
   return (
     <>

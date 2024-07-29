@@ -105,7 +105,7 @@ const IconSocial: React.FC<SocialProps> = ({ children }) => {
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return (
-            <div className='text-muted-foreground hover:text-foreground cursor-pointer text-xl mx-4'>
+            <div className='text-muted-foreground hover:text-foreground cursor-pointer text-xl mx-2'>
               {child}
             </div>
           )

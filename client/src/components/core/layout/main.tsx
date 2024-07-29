@@ -7,7 +7,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
 
   return (
     <>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex max-h-screen">
         <Sidebar />
         <main className="flex-1 overflow-y-scroll">{children || <Outlet />}</main>
       </div>
