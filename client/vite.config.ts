@@ -30,6 +30,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     },
     // define variable global
     define: {
+      ROOTDIR: JSON.stringify(rootPath)
     },
     // alias a path in during dev
     resolve: {
