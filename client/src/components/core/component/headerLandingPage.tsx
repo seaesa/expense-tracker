@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../shadcn/button";
 import { Separator } from "../shadcn/separator";
-import { Switch } from "../shadcn/switch";
-import { Label } from "../shadcn/label";
-import { useTheme } from "@/providers/theme";
+import SwitchTheme from '@/components/switch-theme';
 const navBar = [
   {
     href: "/",
@@ -24,7 +22,6 @@ const navBar = [
 
 ]
 export default function Header() {
-  const { theme, setTheme } = useTheme()
   return (
     <>
       <div className="flex screen-header items-center justify-between mx-2 my-1">
@@ -42,10 +39,7 @@ export default function Header() {
           ))}
         </div>
         <div className="flex mx-2">
-          <div className="flex items-center space-x-2 mr-6">
-            <Label className="capitalize transition-all" htmlFor="mode">{`${theme} Mode`}</Label>
-            <Switch id='mode' onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
-          </div>
+          <SwitchTheme />
           <div className="flex items-center">
             <Button asChild variant='ghost' className="hover:bg-none!">
               <Link to='login'>

@@ -5,7 +5,7 @@ import {
   DollarSign,
   Search,
   Users,
-} from "lucide-react"
+} from "lucide-react";
 import { Button } from "@/components/core/shadcn/button"
 import {
   Card,
@@ -23,11 +23,8 @@ import {
 } from "@/components/core/shadcn/dropdown-menu"
 import { Input } from "@/components/core/shadcn/input"
 import Chart from "./chart"
-import { Switch } from "../core/shadcn/switch"
-import { Label } from "../core/shadcn/label"
-import { useTheme } from "@/providers/theme"
+import SwitchTheme from '../switch-theme'
 export default function Dashboard() {
-  const { theme, setTheme } = useTheme()
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="z-10 sticky top-0 flex h-16 items-center border-b bg-background px-4 md:px-6 justify-between">
@@ -42,10 +39,7 @@ export default function Dashboard() {
           </div>
         </form>
         <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <div className="flex items-center space-x-2 mr-6">
-            <Label className="capitalize transition-all" htmlFor="mode">{`${theme} Mode`}</Label>
-            <Switch onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
-          </div>
+          <SwitchTheme />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">

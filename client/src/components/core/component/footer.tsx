@@ -1,4 +1,4 @@
-import { Facebook, Github, Instagram, Twitter, Youtube } from 'lucide-react';
+import { InstagramLogoIcon, TwitterLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { Separator } from '../shadcn/separator';
@@ -131,14 +131,10 @@ const Footer: React.FC = () => {
             <div className='flex'>
               <IconSocial>
                 <Link to='https://github.com/seaesa'>
-                  <Github />
+                  <GitHubLogoIcon />
                 </Link>
-                <Youtube />
-                <Twitter />
-                <Link to='https://www.facebook.com/haipeaces'>
-                  <Facebook />
-                </Link>
-                <Instagram />
+                <TwitterLogoIcon />
+                <InstagramLogoIcon />
               </IconSocial>
             </div>
           </div>

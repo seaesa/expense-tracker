@@ -68,7 +68,6 @@ export default function Sidebar() {
       <div className="my-4">
         {sidebarList.map((sidebar, index) => (
           <ButtonSideBar
-            onClick={(e: any) => console.log(e)}
             icon={sidebar.icon} link={sidebar.link} name={sidebar.name} key={index} />
         ))}
       </div>

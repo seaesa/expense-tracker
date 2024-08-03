@@ -9,11 +9,7 @@ import { DataTableViewOptions } from "./data-table-view-options"
 
 import { priorities, statuses } from "./data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import { Plus } from "lucide-react"
-import { useState } from "react"
 import AddTask from "./add-task"
-import { DialogTrigger } from "../core/shadcn/dialog"
-
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
 }

@@ -2,20 +2,42 @@ import { Button } from "@/components/core/shadcn/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription
 } from "@/components/core/shadcn/dialog"
 import { Input } from "@/components/core/shadcn/input"
-import { Label } from "@/components/core/shadcn/label"
-import { Plus } from "lucide-react"
+import { PlusIcon } from '@radix-ui/react-icons'
 import { useState } from "react"
+import DatePicker from '../date'
+import Category from '../category'
 
-const AddTask = () => {
-  const [addTask, setAddTask] = useState<boolean>(false)
+import { z } from "zod"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Form, FormControl, FormField, FormItem, FormLabel } from '../core/shadcn/form'
 
+const formSchema = z.object({
+  amount: z.number(),
+  description: z.string(),
+  date: z.date(),
+  category: z.string()
+})
+const AddTask: React.FC = () => {
+  const [addTask, setAddTask] = useState<boolean>(false);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      amount: 0,
+      description: '',
+      date: new Date(),
+      category: ''
+    },
+  })
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values)
+  }
   return (
     <div className="">
       <Dialog>
@@ -23,33 +45,78 @@ const AddTask = () => {
           <Button
             onClick={() => setAddTask(!addTask)}
             variant="outline" size="sm" className="mx-4">
-            <Plus className="h-4 w-4" />
+            <PlusIcon className="h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px]" aria-description='undefined'>
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
+            <DialogTitle>Add new</DialogTitle>
+            {/* fix warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.*/}
+            <DialogDescription hidden>add new item</DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input id="username" value="@peduarte" className="col-span-3" />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="grid gap-4 py-4">
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <>
+                    <FormItem className='grid grid-cols-4 items-center gap-4'>
+                      <FormLabel htmlFor='amount' className='text-right'>Amount</FormLabel>
+                      <FormControl>
+                        <Input id="amount" className="col-span-3" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  </>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <>
+                    <FormItem className='grid grid-cols-4 items-center gap-4'>
+                      <FormLabel htmlFor='description' className='text-right'>Description</FormLabel>
+                      <FormControl>
+                        <Input id="description" className="col-span-3" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  </>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <>
+                    <FormItem className='grid grid-cols-4 items-center gap-4'>
+                      <FormLabel className='text-right'>Date</FormLabel>
+                      <FormControl>
+                        <DatePicker {...field} />
+                      </FormControl>
+                    </FormItem>
+                  </>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <>
+                    <FormItem className='grid grid-cols-4 items-center gap-4'>
+                      <FormLabel htmlFor='category' className='text-right'>Category</FormLabel>
+                      <FormControl>
+                        <Category {...field} />
+                      </FormControl>
+                    </FormItem>
+                  </>
+                )}
+              />
+              <Button type="submit" className='ml-auto'>Save</Button>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>
