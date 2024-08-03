@@ -1,13 +1,23 @@
-### GET
-GET http://localhost:3000/api/home
-
-###POST
-POST http://localhost:3000/api/home
+### login to user
+POST  
 Content-Type: application/json
 
 {
-  "name":"hai"
+  "username":"",
+  "email":"",
+  "password":""
 }
 
-###
-GET http://localhost:3000/login/wefew
+### register a user
+POST http://localhost:3000/v1/register
+Content-Type: application/json
+
+{
+  "username":"",
+  "email":"",
+  "password":"",
+  "confirmPassword":""
+}
+
+### add new expenxe
+POST http://localhost:3000/api/v1/

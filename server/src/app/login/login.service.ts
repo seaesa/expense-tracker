@@ -13,7 +13,6 @@ export class LoginService {
   }
 
   findOne(id: string) {
-    console.log(typeof id)
     return `This action returns a #${id} login`;
   }
 
