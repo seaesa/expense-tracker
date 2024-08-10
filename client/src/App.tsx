@@ -7,6 +7,7 @@ import MainLayout from "./components/core/layout/main";
 import DashBoard from "./components/dashboard/dashboard";
 import NextTopLoader from 'nextjs-toploader';
 import Task from "./components/task";
+import ProtectedRoute from './components/protected';
 
 export default function App() {
   return (
@@ -17,10 +18,22 @@ export default function App() {
           <Route path="/dashboard" element={<DashBoard />}></Route>
           <Route path="/task" element={<Task />}></Route>
         </Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={
+          <ProtectedRoute>
+            <Signup />
+          </ProtectedRoute>
+        }></Route>
+        <Route path="/login" element={
+          <ProtectedRoute>
+            <Login />
+          </ProtectedRoute>
+        }></Route>
         <Route element={<Landing />}>
-          <Route path="/" element={<ContentLandingPage />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <ContentLandingPage />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </>

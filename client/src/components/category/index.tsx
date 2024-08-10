@@ -14,36 +14,27 @@ import {
 } from "../core/shadcn/command"
 import { Button } from '../core/shadcn/button';
 import { CommandList } from 'cmdk';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
+import { apiv1 } from '@/services/axios';
 const Category = forwardRef<HTMLDivElement, ControllerRenderProps>((field, ref) => {
+  const [categories, setCategories] = useState<Array<any>>([])
   const [open, setOpen] = useState(false)
-
+  const searchRef = useRef() as MutableRefObject<HTMLInputElement>
+  const handleAddCategory = async () => {
+    const data: any = await apiv1.post('/category', { name: searchRef.current.value })
+    setCategories(category => [...category, data])
+  }
   useEffect(() => {
     setOpen(false)
   }, [field.value])
+
+  useEffect(() => {
+    (async () => {
+      const data: any = await apiv1.get('/categories')
+      setCategories(data)
+    })()
+  }, [])
   return (
     <>
       <div className="col-span-3">
@@ -56,34 +47,34 @@ const Category = forwardRef<HTMLDivElement, ControllerRenderProps>((field, ref) 
               className="w-full justify-between"
             >
               {field.value
-                ? frameworks.find((framework) => framework.value === field.value)?.label
-                : "add category"}
+                ? categories.find((category) => category.name === field.value)?.name
+                : "Category"}
               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-1 w-full" align='start'>
             <Command>
               <div className='flex items-center'>
-                <CommandInput placeholder='add item' />
-                <Button variant="ghost" size="icon">
+                <CommandInput ref={searchRef} placeholder='add item' />
+                <Button onClick={handleAddCategory} variant="ghost" size="icon">
                   <PlusIcon className="h-4 w-4" />
                 </Button>
               </div>
               <CommandList>
                 <CommandGroup>
-                  {frameworks.map((framework) => (
+                  {categories.map((category) => (
                     <CommandItem
                       {...field}
                       ref={ref}
-                      key={framework.value}
-                      value={framework.value}
+                      key={category._id}
+                      value={category.name}
                       onSelect={field.onChange}
                     >
-                      {framework.label}
+                      {category.name}
                       <CheckIcon
                         className={cn(
                           "ml-auto h-4 w-4",
-                          field.value === framework.value ? "opacity-100" : "opacity-0"
+                          field.value === category.name ? "opacity-100" : "opacity-0"
                         )}
                       />
                     </CommandItem>

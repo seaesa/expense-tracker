@@ -1,23 +1,27 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../core/shadcn/input";
 import { Label } from "../core/shadcn/label";
 import { Button } from "../core/shadcn/button";
-import LoginImage from '@/assets/team.svg';
+import Globe from '/globe.svg'
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../core/shadcn/form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
+import { apiv1 } from '@/services/axios';
+import { useCookies } from 'react-cookie';
+import { useUserStore } from '@/stores/user';
 const formSchema = z.object({
   email: z.string().min(6, {
     message: 'field must be required'
   }),
-  password: z.string().email({
-    message: 'this field must be email'
-  })
+  password: z.string()
 })
 const Login = () => {
+  const [cookies, setCookies] = useCookies(['token'])
+  const navigate = useNavigate();
+  const handleSetUser = useUserStore((state) => state.setUser)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,9 +29,16 @@ const Login = () => {
       password: ""
     }
   })
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-
-    console.log(values)
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const user: any = await apiv1.post('/auth/login', values)
+    console.log(cookies)
+    setCookies('token', user.access_token)
+    handleSetUser({
+      id: user.id,
+      email: user.email,
+      username: user.username
+    })
+    navigate('/dashboard')
   }
   return (
     <div className="w-full lg:grid min-h-svh lg:grid-cols-2">
@@ -73,7 +84,7 @@ const Login = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input id="password" type="password" {...field} />
+                        <Input id="password" type="password" autoComplete='true' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -98,7 +109,7 @@ const Login = () => {
       </div>
       <div className="hidden bg-muted lg:flex justify-center items-center">
         <img
-          src={LoginImage}
+          src={Globe}
           alt="Image"
           className="h-[80%] w-[80%] object-cover"
         />

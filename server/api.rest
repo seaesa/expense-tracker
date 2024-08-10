@@ -1,23 +1,46 @@
 ### login to user
-POST  
+POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
-{
-  "username":"",
-  "email":"",
-  "password":""
+{ 
+  "email":"hairip100@gmail.com",
+  "password":"cocainit"
 }
 
 ### register a user
-POST http://localhost:3000/v1/register
+POST http://localhost:3000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "username":"",
-  "email":"",
-  "password":"",
-  "confirmPassword":""
+  "username":"hai",
+  "email":"hairip100@gmail.com",
+  "password":"cocainit",
+  "confirmPassword":"cocainit"
 }
 
 ### add new expenxe
-POST http://localhost:3000/api/v1/
+POST http://localhost:3000/api/v1/expenses
+Content-Type: application/json
+
+{
+  "amount":123,
+  "description":"this is desc",
+  "date":"fwewefwefwe",
+  "category":"buy"
+}
+
+### add category
+POST http://localhost:3000/api/v1/category
+Content-Type: application/json
+
+{
+   "name":"tiền nhà"
+}
+
+### get all category
+GET http://localhost:3000/api/v1/categories
+Content-Type: application/json
+
+{
+  "name":"tiền nhà"
+}

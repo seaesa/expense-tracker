@@ -2,16 +2,25 @@ import { z } from "zod"
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import { UserNav } from "./user-nav"
-import { taskSchema } from "./schema"
 import { Separator } from "../core/shadcn/separator"
 import SwitchTheme from '../switch-theme'
+import { useEffect, useState } from 'react'
+import { apiv1 } from '@/services/axios'
+import { taskSchema } from './schema'
+import { useExpenseStore } from '@/stores/expense'
 export const metadata: any = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
 }
-
 const Task = () => {
-  const tasks = z.array(taskSchema).parse([])
+  const [tasks, handleAddtask, render] = useExpenseStore((state) => [state.tasks, state.dispatch, state.render])
+  // const [tasks, setTasks] = useState(z.array(taskSchema).parse([]))
+  useEffect(() => {
+    (async () => {
+      const data: any = await apiv1.get('/expenses')
+      handleAddtask(data)
+    })()
+  }, [render])
   return (
     <>
       <div className="hidden flex-1 flex-col space-y-6 px-8 py-4 md:flex h-full w-full">
@@ -31,8 +40,8 @@ const Task = () => {
             </div>
           </div>
           <Separator />
+          <DataTable data={tasks} columns={columns} />
         </div>
-        <DataTable data={tasks} columns={columns} />
       </div>
     </>
   )

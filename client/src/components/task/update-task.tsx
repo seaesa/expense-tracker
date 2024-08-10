@@ -6,10 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-  DialogClose
 } from "@/components/core/shadcn/dialog"
 import { Input } from "@/components/core/shadcn/input"
-import { PlusIcon, ReloadIcon } from '@radix-ui/react-icons'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { useState } from "react"
 import DatePicker from '../date'
 import Category from '../category'
@@ -20,6 +19,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../core/shadcn/form'
 import { apiv1 } from '@/services/axios'
 import { useExpenseStore } from '@/stores/expense'
+import { DropdownMenuItem } from '../core/shadcn/dropdown-menu'
+import { Task } from './schema'
+import { Row } from '@tanstack/react-table'
 
 const formSchema = z.object({
   amount: z.string(),
@@ -27,41 +29,37 @@ const formSchema = z.object({
   date: z.date(),
   category: z.string()
 })
-const AddTask: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
+interface DataTableRowActionsProps<TData> {
+  row: Row<TData>
+}
+
+export const UpdateTask: React.FC<DataTableRowActionsProps<Task> | any> = ({ row, open, setOpen }) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const handleAddTask = useExpenseStore((state) => state.addTask)
+  const handleReRender = useExpenseStore((state) => state.onReRender)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      amount: '',
-      description: '',
-      date: new Date(),
-      category: ''
+      amount: row.original.amount,
+      description: row.original.description,
+      date: row.original.date,
+      category: row.original.category
     },
   })
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)
-    const data: any = await apiv1.post('/expenses', values)
+    await apiv1.patch(`/expense/${row.original._id}`, values)
     setLoading(false)
     setOpen(false)
-    handleAddTask(data)
+    handleReRender()
   }
   return (
     <div className="">
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button
-            onClick={() => setOpen(true)}
-            variant="outline" size="sm" className="mx-4">
-            <PlusIcon className="h-4 w-4" />
-          </Button>
-        </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader >
-            <DialogTitle>Add new</DialogTitle>
+            <DialogTitle>Update</DialogTitle>
             {/* fix warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.*/}
-            <DialogDescription hidden>add new item</DialogDescription>
+            <DialogDescription hidden>update item</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -136,5 +134,4 @@ const AddTask: React.FC = () => {
       </Dialog>
     </div >
   )
-}
-export default AddTask
+} 

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "../shadcn/button"
 import { Bell, CalendarCheck, CircleUserRound, Home, Package2, Settings, } from "lucide-react"
+import { useUserStore } from '@/stores/user'
 
 type ButtonProps = {
   icon: any,
@@ -46,12 +47,13 @@ function ButtonSideBar({ icon: Icon, name, link, active = false, ...props }: But
   )
 }
 function HeaderSideBar() {
+  const user = useUserStore((state) => state.user)
   return (
     <>
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-        <Link to="/" className="flex items-center gap-2 font-semibold space-x-1">
+        <Link to="/dashboard" className="flex items-center gap-2 font-semibold space-x-1">
           <CircleUserRound className="h-6 w-6" />
-          <span className="">Ngoc Hai</span>
+          <span className="">{user?.username}</span>
         </Link>
         <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
           <Bell className="h-4 w-4" />
