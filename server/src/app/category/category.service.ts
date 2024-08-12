@@ -20,8 +20,8 @@ export class CategoryService {
     return await this.categoryModel.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(name: string) {
+    return await this.categoryModel.findOne({ name });
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {

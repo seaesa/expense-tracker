@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose';
+
 export class CreateExpenseDto {
   readonly amount: number;
   readonly description: string;

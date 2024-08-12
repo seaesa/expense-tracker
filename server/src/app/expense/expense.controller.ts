@@ -2,22 +2,27 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpS
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { CategoryService } from '../category/category.service';
+import { CategorySchema, Category } from 'src/schemas/category.schema';
 
 @Controller('api/v1')
 export class ExpenseController {
   constructor(
     private readonly expenseService: ExpenseService,
+    private readonly categoryService: CategoryService,
   ) { }
 
   @Post('expenses')
-  create(@Body() createExpenseDto: CreateExpenseDto) {
+  async create(@Body() body: CreateExpenseDto) {
+    const { category } = body;
+    const data = await this.categoryService.findOne(category)
     // const { date } = createExpenseDto;
     // if (typeof date === 'string')
     //   throw new HttpException({
     //     status: HttpStatus.BAD_REQUEST,
     //     error: 'Date feild must be Date format'
     //   }, HttpStatus.BAD_REQUEST)
-    return this.expenseService.create(createExpenseDto);
+    return this.expenseService.create({ ...body, category: data._id as string });
   }
 
   @Get('expenses')

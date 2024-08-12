@@ -17,7 +17,14 @@ const envConfix = () => {
 @Module({
   controllers: [AppController],
   providers: [AppService],
-  imports: [envConfix(), MongooseModule.forRoot(process.env.MONGO_URL), ExpenseModule, AuthModule, CategoryModule],
+  imports: [
+    envConfix(),
+    MongooseModule.forRoot(process.env.MONGO_URL),
+    ExpenseModule,
+    AuthModule,
+    CategoryModule
+  ],
+  exports: [CategoryModule]
 })
 export class AppModule {
   // configure(consumer: MiddlewareConsumer) {

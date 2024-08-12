@@ -18,6 +18,10 @@ Content-Type: application/json
   "confirmPassword":"cocainit"
 }
 
+### get all expenses
+GET http://localhost:3000/api/v1/expenses
+Content-Type: application/json
+
 ### add new expenxe
 POST http://localhost:3000/api/v1/expenses
 Content-Type: application/json
@@ -25,8 +29,8 @@ Content-Type: application/json
 {
   "amount":123,
   "description":"this is desc",
-  "date":"fwewefwefwe",
-  "category":"buy"
+  "date":"11/08/2004",
+  "category":"tiền nhà"
 }
 
 ### add category

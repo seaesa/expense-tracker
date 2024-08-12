@@ -10,17 +10,17 @@ import { InjectModel } from '@nestjs/mongoose';
 export class ExpenseService {
   constructor(
     private readonly config: ConfigService,
-    @InjectModel(Expense.name) private expenseModel: Model<Expense>
+    @InjectModel(Expense.name) private expenseModel: Model<Expense>,
   ) {
 
   }
-  create(createExpenseDto: CreateExpenseDto) {
-    const data = this.expenseModel.create(createExpenseDto)
+  async create(createExpenseDto: CreateExpenseDto) {
+    const data = await this.expenseModel.create(createExpenseDto)
     return data
   }
 
   findAll() {
-    const data = this.expenseModel.find({})
+    const data = this.expenseModel.find({}).populate('category')
     return data
   }
 
