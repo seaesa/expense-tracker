@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom"
 import { Button } from "../shadcn/button"
-import { Bell, CalendarCheck, CircleUserRound, Home, Package2, Settings, } from "lucide-react"
+import { Bell, CalendarCheck, ChartColumnStacked, CircleUserRound, Home, Package2, Settings, } from "lucide-react"
 import { useUserStore } from '@/stores/user'
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/core/shadcn/dropdown-menu"
 
 type ButtonProps = {
   icon: any,
@@ -18,8 +27,13 @@ const sidebarList = [
   },
   {
     icon: CalendarCheck,
-    link: '/task',
-    name: 'Task'
+    link: '/table',
+    name: 'table'
+  },
+  {
+    icon: ChartColumnStacked,
+    link: '/categories',
+    name: 'categories'
   },
   {
     icon: Package2,
@@ -37,7 +51,7 @@ function ButtonSideBar({ icon: Icon, name, link, active = false, ...props }: But
     <>
       <div className="flex-1 my-1" {...props}>
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4x">
-          <Link to={link} className={`flex items-center gap-3 rounded-lg px-3 py-2 ${active || 'text-muted-foreground'} transition-all hover:text-primary`} >
+          <Link to={link} className={`flex items-center gap-3 rounded-lg px-3 py-2 ${active || 'text-muted-foreground'} transition-all hover:text-primary capitalize`} >
             <Icon className="h-4 w-4" />
             {name}
           </Link>
@@ -51,10 +65,24 @@ function HeaderSideBar() {
   return (
     <>
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-        <Link to="/dashboard" className="flex items-center gap-2 font-semibold space-x-1">
-          <CircleUserRound className="h-6 w-6" />
-          <span className="">{user?.username}</span>
-        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Link to='/dashboard' className='flex items-center space-x-2'>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <CircleUserRound className="h-5 w-5" />
+              </Button>
+              <span className="font-semibold text-muted-foreground">{user?.username}</span>
+            </Link>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
           <Bell className="h-4 w-4" />
           <span className="sr-only">Toggle notifications</span>

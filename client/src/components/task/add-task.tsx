@@ -5,8 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogDescription,
-  DialogClose
+  DialogDescription
 } from "@/components/core/shadcn/dialog"
 import { Input } from "@/components/core/shadcn/input"
 import { PlusIcon, ReloadIcon } from '@radix-ui/react-icons'
@@ -18,7 +17,7 @@ import { z } from "zod"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../core/shadcn/form'
-import { apiv1 } from '@/services/axios'
+import { postData } from '@/services/axios'
 import { useExpenseStore } from '@/stores/expense'
 
 const formSchema = z.object({
@@ -42,7 +41,7 @@ const AddTask: React.FC = () => {
   })
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)
-    const data: any = await apiv1.post('/expenses', values)
+    const data: any = await postData('/expenses', values)
     setLoading(false)
     setOpen(false)
     handleAddTask(data)

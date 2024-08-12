@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-
+import NextTopLoader from 'nextjs-toploader';
 type Theme = "dark" | "light"
 
 interface ThemeProviderProps {
@@ -46,9 +46,12 @@ export default function ThemeProvider({
   }
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
-    </ThemeProviderContext.Provider>
+    <>
+      <NextTopLoader color="#d3d3d3" showSpinner={false} />
+      <ThemeProviderContext.Provider {...props} value={value}>
+        {children}
+      </ThemeProviderContext.Provider>
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
 // import imageSvg from '@/assets/image-home.svg'
 import { Button } from '../core/shadcn/button'
 import Cobe from '../core/eldoraui/cobe'
-const ContentLandingPage = () => {
+export function Component() {
   return (
     <div className="screen-content flex min-h-[600px]">
       <div className='w-[50%]'>
@@ -14,5 +14,4 @@ const ContentLandingPage = () => {
       </div>
     </div>
   )
-}
-export default ContentLandingPage
+} 

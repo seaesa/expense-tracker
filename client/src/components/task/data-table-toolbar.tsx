@@ -7,7 +7,7 @@ import { Button } from "@/components/core/shadcn/button"
 import { Input } from "@/components/core/shadcn/input"
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { priorities, statuses } from "./data"
+import { statuses } from "./data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import AddTask from "./add-task"
 interface DataTableToolbarProps<TData> {

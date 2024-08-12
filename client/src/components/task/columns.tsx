@@ -86,7 +86,7 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex items-center">
-          <span>{row.getValue('category')}</span>
+          <span>{row.getValue('category')?.name}</span>
         </div>
       )
     },

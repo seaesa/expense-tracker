@@ -16,13 +16,13 @@ import { Button } from '../core/shadcn/button';
 import { CommandList } from 'cmdk';
 import { forwardRef, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-import { apiv1 } from '@/services/axios';
+import { getData, postData } from '@/services/axios';
 const Category = forwardRef<HTMLDivElement, ControllerRenderProps>((field, ref) => {
   const [categories, setCategories] = useState<Array<any>>([])
   const [open, setOpen] = useState(false)
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
   const handleAddCategory = async () => {
-    const data: any = await apiv1.post('/category', { name: searchRef.current.value })
+    const data: any = await postData('/category', { name: searchRef.current.value })
     setCategories(category => [...category, data])
   }
   useEffect(() => {
@@ -31,7 +31,7 @@ const Category = forwardRef<HTMLDivElement, ControllerRenderProps>((field, ref) 
 
   useEffect(() => {
     (async () => {
-      const data: any = await apiv1.get('/categories')
+      const data: any = await getData('/categories')
       setCategories(data)
     })()
   }, [])

@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "../core/sha
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
-import { apiv1 } from '@/services/axios';
+import { postData } from '@/services/axios';
 import { useCookies } from 'react-cookie';
 import { useUserStore } from '@/stores/user';
 const formSchema = z.object({
@@ -20,7 +20,7 @@ const formSchema = z.object({
   confirmPassword: z.string()
 })
 import Globe from '/globe.svg'
-export default function Signup() {
+export function Component() {
   const [cookies, setCookies] = useCookies(['token'])
   const navigate = useNavigate();
   const handleSetUser = useUserStore((state) => state.setUser)
@@ -34,7 +34,7 @@ export default function Signup() {
     }
   })
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    const user: any = await apiv1.post('/auth/register', values)
+    const user: any = await postData('/auth/register', values)
     setCookies('token', user.access_token)
     handleSetUser({
       id: user.id,

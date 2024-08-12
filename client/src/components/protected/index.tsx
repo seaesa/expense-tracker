@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
-import { useNavigate } from 'react-router-dom';
-interface protectedProps {
-  children: React.ReactNode
-}
-const ProtectedRoute: React.FC<protectedProps> = ({ children }) => {
+import { Outlet, useNavigate } from 'react-router-dom';
+// interface protectedProps {
+//   children: React.ReactNode
+// }
+const ProtectedRoute: React.FC = () => {
   const [cookies] = useCookies(['token']);
   const navigate = useNavigate()
   useEffect(() => {
@@ -14,7 +14,7 @@ const ProtectedRoute: React.FC<protectedProps> = ({ children }) => {
   }, [cookies])
   return (
     <>
-      {children}
+      <Outlet />
     </>
   )
 }

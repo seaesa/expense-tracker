@@ -13,34 +13,25 @@ import {
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/core/shadcn/chart"
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-
+  { month: "January", limit: 186, buyed: 80 },
+  {},
+  {},
+  {}
 ]
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  limit: {
+    label: "limit this month",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Mobile",
+  buyed: {
+    label: "buyed amount",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
@@ -53,7 +44,7 @@ export default function Chart() {
           <CardTitle>Analytics</CardTitle>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig}>
+          <ChartContainer config={chartConfig} className='min-h-28'>
             <BarChart data={chartData}>
               <CartesianGrid vertical={false} />
               <XAxis
@@ -65,10 +56,11 @@ export default function Chart() {
               />
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent indicator="dashed" />}
+                content={<ChartTooltipContent indicator="dashed" className='mx-2' />}
               />
-              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar dataKey="limit" fill="var(--color-limit)" radius={4} />
+              <Bar dataKey="buyed" fill="var(--color-buyed)" radius={4} />
             </BarChart>
           </ChartContainer>
         </CardContent>

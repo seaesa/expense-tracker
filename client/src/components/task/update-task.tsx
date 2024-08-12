@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogDescription,
 } from "@/components/core/shadcn/dialog"
 import { Input } from "@/components/core/shadcn/input"
@@ -17,9 +16,8 @@ import { z } from "zod"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../core/shadcn/form'
-import { apiv1 } from '@/services/axios'
+import { patchData } from '@/services/axios'
 import { useExpenseStore } from '@/stores/expense'
-import { DropdownMenuItem } from '../core/shadcn/dropdown-menu'
 import { Task } from './schema'
 import { Row } from '@tanstack/react-table'
 
@@ -47,7 +45,7 @@ export const UpdateTask: React.FC<DataTableRowActionsProps<Task> | any> = ({ row
   })
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)
-    await apiv1.patch(`/expense/${row.original._id}`, values)
+    await patchData(`/expense/${row.original._id}`, values)
     setLoading(false)
     setOpen(false)
     handleReRender()

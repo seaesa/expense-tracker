@@ -12,7 +12,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/core/shadcn/dropdown-menu"
-import { apiv1 } from '@/services/axios'
+import { deleteData } from '@/services/axios'
 import { useExpenseStore } from '@/stores/expense'
 import { Task } from './schema'
 
@@ -28,7 +28,7 @@ export function DataTableRowActions<TData extends Task>({
   const DeleteExpense = useExpenseStore((state) => state.deleteTask)
   const handleDeleteExpense = async () => {
     const idExpense = row.original?._id
-    await apiv1.delete(`/expense/${idExpense}`)
+    await deleteData(`/expense/${idExpense}`)
     DeleteExpense(idExpense)
   }
   return (
