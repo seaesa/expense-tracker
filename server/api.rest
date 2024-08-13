@@ -48,3 +48,16 @@ Content-Type: application/json
 {
   "name":"tiền nhà"
 }
+
+###
+POST http://localhost:3000/api/v1/limit-expense
+Content-Type: application/json
+
+{
+  "amount":123,
+  "date":"11/10/2004"
+}
+
+###
+GET http://localhost:3000/api/v1/limit-expenses
+Content-Type: application/json

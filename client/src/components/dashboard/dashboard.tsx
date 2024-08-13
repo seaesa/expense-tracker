@@ -12,7 +12,44 @@ import {
 import { Input } from "@/components/core/shadcn/input"
 import Chart from "./chart"
 import SwitchTheme from '../switch-theme'
+import { useEffect, useState } from 'react';
+import { getData } from '@/services/axios';
+import { formatCurrency } from '@/shared/formatCurrency';
+import GoalExpense from '../goalExpense';
+import { format } from 'date-fns';
+const merge = (o1, o2) => {
+  return Object.keys(Object.keys(o1).reduce((p, key) => {
+    p[key] = { ...o1[key], ...o2[key] }
+    return p
+  }, {})).map((data, index) => ({ ...o1[data], ...o2[data] }))
+}
 export function Component() {
+  const [chart, setChart] = useState<object>({})
+  useEffect(() => {
+    (async () => {
+      const expenses = await getData('/expenses');
+      const limit = await getData('/limit-expenses');
+      const formatExpense = expenses.reduce((prev, curr) => {
+        const formatMonth = format(curr.date, 'MMMM')
+        prev[formatMonth] = {
+          month: formatMonth,
+          buyed: curr.amount + (prev[formatMonth]?.buyed || 0)
+        }
+        return prev
+      }, {} as any)
+      const formatLimit = limit.reduce((prev, curr) => {
+        const formatMonth = format(curr.date, 'MMMM')
+        prev[formatMonth] = {
+          month: formatMonth,
+          limit: curr.amount
+        }
+        return prev
+      }, {} as any)
+
+      const data = merge(formatExpense, formatLimit)
+      setChart(data)
+    })()
+  }, [])
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="z-10 sticky top-0 flex h-16 items-center border-b bg-background px-4 md:px-6 justify-between">
@@ -26,7 +63,8 @@ export function Component() {
             />
           </div>
         </form>
-        <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-4 lg:gap-6">
+          <GoalExpense />
           <SwitchTheme />
         </div>
       </header>
@@ -40,7 +78,7 @@ export function Component() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">{ }</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -48,7 +86,7 @@ export function Component() {
           </Card>
         </div>
         <div>
-          <Chart />
+          <Chart chartData={chart} />
         </div>
       </main>
     </div>

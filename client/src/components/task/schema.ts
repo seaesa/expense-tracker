@@ -14,6 +14,9 @@ export const taskSchema = z.object({
   amount: z.number(),
   description: z.string(),
   date: z.date(),
-  category: z.string()
+  category: z.object({
+    _id: z.string(),
+    name: z.string()
+  })
 })
 export type Task = z.infer<typeof taskSchema>

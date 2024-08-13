@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import NextTopLoader from 'nextjs-toploader';
+
+
 type Theme = "dark" | "light"
 
 interface ThemeProviderProps {

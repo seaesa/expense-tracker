@@ -15,7 +15,7 @@ export function Component() {
   // const [tasks, setTasks] = useState(z.array(taskSchema).parse([]))
   useEffect(() => {
     (async () => {
-      const data: any = await getData('/expenses')
+      const data = await getData('/expenses')
       handleAddtask(data)
     })()
   }, [render])

@@ -19,6 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../core/shadcn/form'
 import { postData } from '@/services/axios'
 import { useExpenseStore } from '@/stores/expense'
+import { format } from 'date-fns'
 
 const formSchema = z.object({
   amount: z.string(),
@@ -41,7 +42,7 @@ const AddTask: React.FC = () => {
   })
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)
-    const data: any = await postData('/expenses', values)
+    const data: any = await postData('/expenses', { ...values })
     setLoading(false)
     setOpen(false)
     handleAddTask(data)

@@ -1,4 +1,4 @@
-<h2 align="center">FullStack Application <strong>React</strong>+<strong>NestJs</strong></h2>
+<h2 align="center">FullStack Application <strong>React</strong> + <strong>NestJs</strong></h2>
 
 ### this website provide a app help you manager every task in day life
 

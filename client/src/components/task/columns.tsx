@@ -9,6 +9,7 @@ import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 import { UpdateTask } from './update-task'
 import { useState } from 'react'
+import { format } from 'date-fns'
 
 export const columns: ColumnDef<Task>[] = [
   {

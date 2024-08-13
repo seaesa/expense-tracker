@@ -1,3 +1,4 @@
+import { AxiosResponseData } from '@/types/responseTypes'
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.NO_BASE_URL
@@ -11,7 +12,7 @@ api.interceptors.response.use((response: AxiosResponse<any, any>) => {
     message: error.message
   }
 })
-export const getData = async (url: string, config?: AxiosRequestConfig) => {
+export const getData = async (url: string, config?: AxiosRequestConfig): Promise<AxiosResponseData[]> => {
   try {
     const res: AxiosResponse = await api.get(url, config);
     return res.data

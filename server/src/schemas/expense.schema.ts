@@ -17,6 +17,7 @@ export class Expense {
 
   @Prop({ type: Boolean, required: false, default: false })
   deleted: boolean
+
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   category: Category
 }

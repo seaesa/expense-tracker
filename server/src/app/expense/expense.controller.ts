@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
@@ -26,8 +26,8 @@ export class ExpenseController {
   }
 
   @Get('expenses')
-  findAll() {
-    return this.expenseService.findAll();
+  findAll(@Query('field') field: string) {
+    return this.expenseService.findAll({ field });
   }
 
   @Get('expense/:id')

@@ -7,10 +7,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ExpenseModule } from './app/expense/expense.module';
 import { AuthModule } from './app/auth/auth.module';
 import { CategoryModule } from './app/category/category.module';
-
+import { LimitExpenseModule } from './app/limit-expense/limit-expense.module';
 const envConfix = () => {
   return ConfigModule.forRoot({
-    envFilePath: ['.env.local', '.env.development.local', '.env.development'],
+    envFilePath: ['.env.development.local', '.env.development'],
     isGlobal: true
   })
 }
@@ -22,7 +22,8 @@ const envConfix = () => {
     MongooseModule.forRoot(process.env.MONGO_URL),
     ExpenseModule,
     AuthModule,
-    CategoryModule
+    CategoryModule,
+    LimitExpenseModule,
   ],
   exports: [CategoryModule]
 })

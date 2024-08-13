@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejss.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const rootPath = process.cwd()
-  const env = loadEnv(mode, `${rootPath}/env`, '')
+  const env = loadEnv(mode, rootPath, '')
   return {
     // base
     appType: 'spa',
@@ -13,7 +13,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     base: '/',
     root: rootPath,
     publicDir: 'public',
-    envDir: './env',
     envPrefix: 'NO',
     cacheDir: 'node_modules/.vite',
     clearScreen: true,

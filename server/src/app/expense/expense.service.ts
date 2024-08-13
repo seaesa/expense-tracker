@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Param, Query } from '@nestjs/common';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ConfigService } from '@nestjs/config';
@@ -19,8 +19,8 @@ export class ExpenseService {
     return data
   }
 
-  findAll() {
-    const data = this.expenseModel.find({}).populate('category')
+  findAll({ field }) {
+    const data = this.expenseModel.find({}, {}, { populate: 'category' })
     return data
   }
 

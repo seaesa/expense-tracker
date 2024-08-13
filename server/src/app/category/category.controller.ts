@@ -19,17 +19,17 @@ export class CategoryController {
     return this.categoryService.findAll();
   }
 
-  @Get(':id')
+  @Get('category/:id')
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('category/:id')
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(+id, updateCategoryDto);
   }
 
-  @Delete(':id')
+  @Delete('category/:id')
   remove(@Param('id') id: string) {
     return this.categoryService.remove(+id);
   }

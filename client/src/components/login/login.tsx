@@ -31,7 +31,6 @@ export function Component() {
   })
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const user: any = await postData('/auth/login', values)
-    console.log(cookies)
     setCookies('token', user.access_token)
     handleSetUser({
       id: user.id,

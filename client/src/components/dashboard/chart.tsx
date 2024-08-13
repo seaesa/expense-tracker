@@ -18,6 +18,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/core/shadcn/chart"
+import { useEffect, useState } from 'react'
+import { getData } from '@/services/axios'
 const chartData = [
   { month: "January", limit: 186, buyed: 80 },
   {},
@@ -36,7 +38,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function Chart() {
+export default function Chart({ chartData }: { chartData: any[] }) {
+  // const formatChart = [
+  //   {month:chartData.}
+  // ]
+  // useEffect(() => {
+  //   console.log([...chartData])
+  // }, [])
   return (
     <>
       <Card>
