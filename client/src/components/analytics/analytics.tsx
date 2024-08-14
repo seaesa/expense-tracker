@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Pie, PieChart } from "recharts"
+import { LabelList, Pie, PieChart } from "recharts"
 
 import {
   Card,
@@ -17,41 +17,75 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/core/shadcn/chart"
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-]
+import { useEffect, useState } from 'react'
+import { getData } from '@/services/axios'
+import { convertObjectToArray } from '@/logic/mergeLogic'
+import { formatString } from '@/shared/formatString'
+// const chartData = [
+//   { browser: "chrome", visitor: 1000, fill: "var(--color-chrome)" },
+//   { browser: "safari", visitor: 200, fill: "var(--color-safari)" },
+//   { browser: "firefox", visitor: 187, fill: "var(--color-firefox)" },
+//   { browser: "edge", visitor: 173, fill: "var(--color-edge)" },
+//   { browser: "other", visitor: 90, fill: "var(--color-other)" },
+// ]
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig
+// const chartConfig = {
+//   visitors: {
+//     label: "Visitors",
+//   },
+//   chrome: {
+//     label: "Chrome",
+//     color: "hsl(var(--chart-1))",
+//   },
+//   safari: {
+//     label: "Safari",
+//     color: "hsl(var(--chart-2))",
+//   },
+//   firefox: {
+//     label: "Firefox",
+//     color: "hsl(var(--chart-3))",
+//   },
+//   edge: {
+//     label: "Edge",
+//     color: "hsl(var(--chart-4))",
+//   },
+//   other: {
+//     label: "Other",
+//     color: "hsl(var(--chart-5))",
+//   },
+
+// } satisfies ChartConfig
 
 export function Component() {
+  const [chartData, setChartData] = useState([])
+  const [chartConfig, setChartConfig] = useState({})
+
+  useEffect(() => {
+    (async () => {
+      const data = await getData('/expenses')
+      const dataInThisMonth = data.filter(data => (new Date(data.date).toLocaleDateString() === new Date().toLocaleDateString()))
+      const formatData = dataInThisMonth.reduce((prev, curr) => {
+        const category = formatString(curr.category.name)
+        prev[category] = {
+          amount: curr.amount + (prev[category]?.visitors || 0),
+          category: category,
+          fill: `var(--color-${category})`
+        }
+        return prev
+      }, {})
+      setChartConfig(() => {
+        return Object.keys(formatData).reduce((obj, keys, index) => {
+          obj[keys] = {
+            label: keys,
+            color: `hsl(var(--chart-${index + 1}))`
+          }
+          return obj
+        }, {})
+      })
+      setChartData(convertObjectToArray(formatData))
+    })()
+  }, [])
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -65,7 +99,16 @@ export function Component() {
         >
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <Pie data={chartData} dataKey="visitors" label nameKey="browser" />
+            <Pie data={chartData} dataKey="amount" label nameKey="category">
+              <LabelList
+                dataKey="category"
+                className="fill-background"
+                stroke="none"
+                fontSize={14}
+                formatter={(value: keyof typeof chartConfig) =>
+                  chartConfig[value]?.label
+                } />
+            </Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>

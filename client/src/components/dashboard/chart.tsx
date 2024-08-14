@@ -18,14 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/core/shadcn/chart"
-import { useEffect, useState } from 'react'
-import { getData } from '@/services/axios'
-const chartData = [
-  { month: "January", limit: 186, buyed: 80 },
-  {},
-  {},
-  {}
-]
+import { ObjectProps } from '@/logic/mergeLogic'
 
 const chartConfig = {
   limit: {
@@ -38,13 +31,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function Chart({ chartData }: { chartData: any[] }) {
-  // const formatChart = [
-  //   {month:chartData.}
-  // ]
-  // useEffect(() => {
-  //   console.log([...chartData])
-  // }, [])
+export default function Chart({ chartData }: { chartData: ObjectProps[] }) {
   return (
     <>
       <Card>
@@ -53,7 +40,7 @@ export default function Chart({ chartData }: { chartData: any[] }) {
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className='min-h-28'>
-            <BarChart data={chartData}>
+            <BarChart data={chartData.length < 5 ? [...chartData, {}, {}, {}, {}] : chartData}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"

@@ -51,7 +51,6 @@ const GoalExpense = () => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            {/* <Button hidden className='hidden'></Button> */}
           </div>
         </PopoverTrigger>
         <PopoverContent className="max-w-80" align='end'>
@@ -64,6 +63,7 @@ const GoalExpense = () => {
                 name="amount"
                 render={({ field }) => (
                   <>
+
                     <FormItem className='grid grid-cols-4 items-center gap-4'>
                       <FormLabel htmlFor='amount' className='text-right'>Amount</FormLabel>
                       <FormControl>

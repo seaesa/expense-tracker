@@ -72,8 +72,8 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex w-[100px] items-center">
-          <span>{row.getValue("date")}</span>
+        <div className="flex items-center">
+          <span>{format(row.getValue("date"), 'PPP')}</span>
         </div>
       )
     },

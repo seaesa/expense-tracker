@@ -14,17 +14,17 @@ import Chart from "./chart"
 import SwitchTheme from '../switch-theme'
 import { useEffect, useState } from 'react';
 import { getData } from '@/services/axios';
-import { formatCurrency } from '@/shared/formatCurrency';
+// import { formatCurrency } from '@/shared/formatCurrency';
 import GoalExpense from '../goalExpense';
 import { format } from 'date-fns';
-const merge = (o1, o2) => {
-  return Object.keys(Object.keys(o1).reduce((p, key) => {
-    p[key] = { ...o1[key], ...o2[key] }
-    return p
-  }, {})).map((data, index) => ({ ...o1[data], ...o2[data] }))
-}
+import { convertObjectToArray, mergeObject, ObjectProps } from '@/logic/mergeLogic';
+
 export function Component() {
-  const [chart, setChart] = useState<object>({})
+  const [chart, setChart] = useState<ObjectProps[]>([])
+  const [totalThisMonth, setTotalThisMonth] = useState<{
+    currentMonth?: number,
+    previousMonth?: number
+  }>({})
   useEffect(() => {
     (async () => {
       const expenses = await getData('/expenses');
@@ -39,14 +39,24 @@ export function Component() {
       }, {} as any)
       const formatLimit = limit.reduce((prev, curr) => {
         const formatMonth = format(curr.date, 'MMMM')
-        prev[formatMonth] = {
+        prev[formatMonth as any] = {
           month: formatMonth,
           limit: curr.amount
         }
         return prev
       }, {} as any)
-
-      const data = merge(formatExpense, formatLimit)
+      const data = convertObjectToArray(mergeObject(formatExpense, formatLimit)).sort((a, b) => {
+        const months = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+        return months.indexOf(a.month) - months.indexOf(b.month)
+      })
+      const previousMonth = new Date(new Date().getTime());
+      previousMonth.setDate(0);
+      setTotalThisMonth((prev) => ({
+        ...prev,
+        currentMonth: formatExpense[format(new Date(), 'MMMM')].buyed,
+        previousMonth: formatExpense[format(previousMonth, 'MMMM')].buyed || 0
+      }))
       setChart(data)
     })()
   }, [])
@@ -78,9 +88,9 @@ export function Component() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{ }</div>
+              <div className="text-2xl font-bold">{totalThisMonth.currentMonth}</div>
               <p className="text-xs text-muted-foreground">
-                +20.1% from last month
+                {/* {Math.floor(((totalThisMonth.currentMonth - totalThisMonth.previousMonth) / totalThisMonth.previousMonth) * 100)}% from last month */}
               </p>
             </CardContent>
           </Card>
