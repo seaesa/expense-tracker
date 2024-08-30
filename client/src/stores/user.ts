@@ -1,17 +1,16 @@
-
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 type User = {
-  id: string,
-  email: string,
-  username: string,
-} | null
+	id: string;
+	email: string;
+	username: string;
+} | null;
 interface UserState {
-  user: User,
-  setUser: (user: User) => void
+	user: User;
+	setUser: (user: User) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (user) => set(() => ({ user }))
-})) 
+	user: null,
+	setUser: (user) => set(() => ({ user })),
+}));
