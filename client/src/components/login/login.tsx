@@ -23,8 +23,8 @@ export function Component() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'hairipi100@gmail.com',
+      password: 'cocainit',
     },
   });
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
