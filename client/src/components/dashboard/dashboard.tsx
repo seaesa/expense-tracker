@@ -37,7 +37,7 @@ export function Component() {
         };
         return prev;
       }, {} as any);
-      const data = convertObjectToArray(mergeObject(formatExpense, formatLimit)).sort((a, b) => {
+      const data = convertObjectToArray(mergeObject(formatExpense, formatLimit)).sort((a: any, b: any) => {
         const months = [
           'January',
           'February',
@@ -52,17 +52,18 @@ export function Component() {
           'November',
           'December',
         ];
-        return months.indexOf(a.month) - months.indexOf(b.month);
+        return months.indexOf(a?.month) - months.indexOf(b?.month);
       });
       const previousMonth = new Date(new Date().getTime());
       previousMonth.setDate(0);
-      console.log(formatExpense)
+      console.log(format(new Date(), 'MMMM'));
+      console.log(formatExpense);
       setTotalThisMonth((prev) => ({
         ...prev,
-        currentMonth: formatExpense[format(new Date(), 'MMMM')].buyed || 0,
+        currentMonth: formatExpense[format(new Date(), 'MMMM')]?.buyed || 0,
         // previousMonth: formatExpense[format(previousMonth, 'MMMM')].buyed || 0,
       }));
-      setChart(data);
+      setChart(data as any);
     })();
   }, []);
   return (
