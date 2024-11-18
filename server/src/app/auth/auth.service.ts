@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'; import { SignupDto } from './dto/sign-up.dto';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'; import { SignupDto } from './dto/sign-up.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
@@ -18,7 +18,7 @@ export class AuthService {
       if (!bcrypt.compareSync(password, user.password))
         throw new UnauthorizedException();
       return user
-    } else throw new UnauthorizedException();
+    } else throw new NotFoundException();
   }
   async signUp(signupData: Omit<SignupDto, 'confirmPassword'>): Promise<any> {
     const salt = await bcrypt.genSalt();
