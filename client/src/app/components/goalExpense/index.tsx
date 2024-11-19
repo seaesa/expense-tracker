@@ -12,7 +12,7 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import DatePicker from '../date';
 import { postData } from '@/services/axios';
 const formSchema = z.object({
-  amount: z.string(),
+  amount: z.string().min(1),
   date: z.date(),
 });
 const GoalExpense = () => {
@@ -28,10 +28,9 @@ const GoalExpense = () => {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true);
-    setOpen(false);
     await postData('/limit-expense', values);
     setLoading(false);
-    setOpen(true);
+    setOpen(false);
   };
   return (
     <>

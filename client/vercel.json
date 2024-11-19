@@ -1,0 +1,13 @@
+{
+  "buildCommand": "bun run build",
+  "devCommand": "bun dev",
+  "installCommand": "bun install",
+  "cleanUrls": true,
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}

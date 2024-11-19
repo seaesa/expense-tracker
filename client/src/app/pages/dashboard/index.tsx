@@ -58,8 +58,6 @@ export function Component() {
       );
       const previousMonth = new Date(new Date().getTime());
       previousMonth.setDate(0);
-      console.log(format(new Date(), 'MMMM'));
-      console.log(formatExpense);
       setTotalThisMonth((prev) => ({
         ...prev,
         currentMonth: formatExpense[format(new Date(), 'MMMM')]?.buyed || 0,

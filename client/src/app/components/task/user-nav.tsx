@@ -10,8 +10,10 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/app/components/ui/dropdown-menu';
+import { useCookies } from 'react-cookie';
 
 export function UserNav() {
+  const [, , removeCookie] = useCookies(['token'])
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,8 +27,8 @@ export function UserNav() {
       <DropdownMenuContent className='w-56' align='end' forceMount>
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>shadcn</p>
-            <p className='text-xs leading-none text-muted-foreground'>m@example.com</p>
+            <p className='text-sm font-medium leading-none'>ngoc Hai</p>
+            <p className='text-xs leading-none text-muted-foreground'>hairipi100@gmail.com</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -46,7 +48,7 @@ export function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => removeCookie('token')}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

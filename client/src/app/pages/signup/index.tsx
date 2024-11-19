@@ -16,10 +16,10 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 const formSchema = z
   .object({
-    username: z.string().min(1),
-    email: z.string().min(1).email(),
-    password: z.string().min(1),
-    confirmPassword: z.string().min(1),
+    username: z.string().min(1).default('ngochai1'),
+    email: z.string().min(1).email().default('hairipi111@gmail.com'),
+    password: z.string().min(1).default('cocainit'),
+    confirmPassword: z.string().min(1).default('cocainit'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'password not match!',
@@ -34,12 +34,7 @@ export function Component() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
+    defaultValues: formSchema.parse({}),
   });
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)

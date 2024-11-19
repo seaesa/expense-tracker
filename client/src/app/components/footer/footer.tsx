@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               </Link>
             </div>
           </div>
-          <div className='grid col-span-6 md:col-span-4 grid-flow-col'>
+          <div className='grid col-span-6 grid-cols-2 lg:grid-cols-4 md:col-span-4'>
             {footerConfig.map((content: ContentProps) => (
               <div key={Math.random()} className='grid justify-center'>
                 <span className='block my-4 font-bold'>{content.title}</span>
