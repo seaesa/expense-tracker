@@ -88,9 +88,10 @@ export function Component() {
                   Forgot your password?
                 </Link>
               </div>
-              <Button disabled={loading} type='submit' className='w-full'>
-                {loading && <Loader2 className='animate-spin mx-2' size={18} />}
-                Login
+              <Button disabled={loading} type='submit'>
+                {loading ? <Loader2 className='animate-spin' /> :
+                  'Login'
+                }
               </Button>
               <Button variant='outline' className='w-full'>
                 Login with Google
