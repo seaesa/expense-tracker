@@ -51,15 +51,16 @@ const sidebarList = [
 function HeaderSideBar() {
   const user = useUserStore((state) => state.user);
   const [, , removeCookie] = useCookies(['token']);
+  const { open, openMobile } = useSidebar()
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Link to='/dashboard' className='flex items-center'>
+          <Link to='/dashboard' className='flex items-center space-x-2'>
             <Button variant='secondary' size='icon' className='rounded-full'>
               <CircleUserRound className='h-5 w-5' />
             </Button>
-            <span className='font-semibold text-muted-foreground'>{user?.username}</span>
+            {(open || openMobile) && <span className='font-semibold text-muted-foreground'>{user?.username}</span>}
           </Link>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='start'>
